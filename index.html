@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrivi su NFC</title>
+    <script>
+        async function writeToNFC() {
+            try {
+                // Controlla se l'API Web NFC è disponibile
+                if ('NDEFWriter' in window) {
+                    const ndef = new NDEFWriter();
+                    await ndef.write(document.getElementById('nfcMessage').value);
+                    alert('Messaggio scritto con successo su NFC!');
+                } else {
+                    alert('Il tuo dispositivo o browser non supporta Web NFC.');
+                }
+            } catch (error) {
+                console.error('Errore durante la scrittura NFC:', error);
+                alert('Errore: ' + error.message);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Scrivi un Messaggio su un Tag NFC</h1>
+    <input type="text" id="nfcMessage" placeholder="Inserisci messaggio" />
+    <button onclick="writeToNFC()">Scrivi su NFC</button>
+</body>
+</html>
